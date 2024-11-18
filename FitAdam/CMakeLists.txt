@@ -31,7 +31,7 @@ include_directories( ${Boost_INCLUDE_DIRS} )
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 find_package(GFlags REQUIRED)
-include_directories( ${GFLAGS_INCLUDE_DIR} )
+include_directories( ${GFlags_INCLUDE_DIR} )
 
 file(GLOB JSON_SOURCES "src/lib_json/*.cpp")
 file(GLOB SOURCES "src/*.cpp")
