@@ -64,7 +64,8 @@ const uint sample_dist)  // If sample_dist > 0, only return 1 constraint in ever
         const int brox_inner = 10;
         const int brox_outer = 70;
         const int brox_solver = 10;
-        cv::cuda::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
+        // cv::cuda::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
+        cv::Ptr<cv::cuda::BroxOpticalFlow> brox_flow = cv::cuda::BroxOpticalFlow::create(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
 
         cv::cuda::GpuMat cuda_fu, cuda_fv, cuda_bu, cuda_bv;
         brox_flow(frame0, frame1, cuda_fu, cuda_fv);
@@ -392,7 +393,8 @@ const uint sample_dist)
     const int brox_inner = 10;
     const int brox_outer = 70;
     const int brox_solver = 10;
-    cv::cuda::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
+    // cv::cuda::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
+    cv::Ptr<cv::cuda::BroxOpticalFlow> brox_flow = cv::cuda::BroxOpticalFlow::create(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
 
     cv::cuda::GpuMat cuda_fu, cuda_fv, cuda_bu, cuda_bv;
     brox_flow(frame0, frame1, cuda_fu, cuda_fv);
