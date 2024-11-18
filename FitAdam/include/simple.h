@@ -2,7 +2,14 @@
 #define SIMPLE_H
 
 #include <Eigen/Sparse>
-#include "cv.h"
+
+// Replace cv.h
+// #include "cv.h"
+
+// By below headers for OpenCV 4.10.0 on Colab
+#include <opencv2/core.hpp>
+#include <opencv2/core/core_c.h>
+
 #include <vector>
 #include <utility>
 
