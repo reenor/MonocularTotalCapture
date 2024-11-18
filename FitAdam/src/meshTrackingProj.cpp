@@ -1,7 +1,17 @@
 #include "meshTrackingProj.h"
 #include <random>
 #include <algorithm>
-#include "opencv2/gpu/gpu.hpp"
+
+// Replace gpu.hpp
+// #include "opencv2/gpu/gpu.hpp"
+
+// By below headers for OpenCV 4.10.0 on GPU Colab
+#include "opencv2/core/cuda.hpp"
+#include "opencv2/cudaarithm.hpp"
+#include "opencv2/cudaoptflow.hpp"
+#include <opencv2/core/utility.hpp>
+#include "opencv2/core.hpp"
+
 // #define VISUALIZE_TRACKING
 
 const float depthThresh = 1e-2;  // threshold for determining visibility
@@ -45,7 +55,7 @@ const uint sample_dist)  // If sample_dist > 0, only return 1 constraint in ever
     {
         // use Brox optical flow
         // compute optical from from virtual Image to the target Img
-        cv::gpu::GpuMat frame0(sourceImg), frame1(targetImg);
+        cv::cuda::GpuMat frame0(sourceImg), frame1(targetImg);
         frame0.convertTo(frame0, CV_32F, 1.0 / 255.0);
         frame1.convertTo(frame1, CV_32F, 1.0 / 255.0);
         const double brox_alpha = 0.197;
@@ -54,9 +64,9 @@ const uint sample_dist)  // If sample_dist > 0, only return 1 constraint in ever
         const int brox_inner = 10;
         const int brox_outer = 70;
         const int brox_solver = 10;
-        cv::gpu::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
+        cv::cuda::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
 
-        cv::gpu::GpuMat cuda_fu, cuda_fv, cuda_bu, cuda_bv;
+        cv::cuda::GpuMat cuda_fu, cuda_fv, cuda_bu, cuda_bv;
         brox_flow(frame0, frame1, cuda_fu, cuda_fv);
         brox_flow(frame1, frame0, cuda_bu, cuda_bv);
         cv::Mat fu(cuda_fu), fv(cuda_fv), bu(cuda_bu), bv(cuda_bv);
@@ -373,7 +383,7 @@ const uint sample_dist)
 #endif
 
     // compute optical from from virtual Image to the target Img
-    cv::gpu::GpuMat frame0(resultImg), frame1(targetImg);
+    cv::cuda::GpuMat frame0(resultImg), frame1(targetImg);
     frame0.convertTo(frame0, CV_32F, 1.0 / 255.0);
     frame1.convertTo(frame1, CV_32F, 1.0 / 255.0);
     const double brox_alpha = 0.197;
@@ -382,9 +392,9 @@ const uint sample_dist)
     const int brox_inner = 10;
     const int brox_outer = 70;
     const int brox_solver = 10;
-    cv::gpu::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
+    cv::cuda::BroxOpticalFlow brox_flow(brox_alpha, brox_gamma, brox_scale, brox_inner, brox_outer, brox_solver);
 
-    cv::gpu::GpuMat cuda_fu, cuda_fv, cuda_bu, cuda_bv;
+    cv::cuda::GpuMat cuda_fu, cuda_fv, cuda_bu, cuda_bv;
     brox_flow(frame0, frame1, cuda_fu, cuda_fv);
     brox_flow(frame1, frame0, cuda_bu, cuda_bv);
 
