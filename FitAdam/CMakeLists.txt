@@ -30,8 +30,8 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 include_directories( ${Boost_INCLUDE_DIRS} )
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
-find_package(GFlags REQUIRED)
-include_directories( ${GFlags_INCLUDE_DIR} )
+#find_package(GFlags REQUIRED)
+set(GFLAGS_INCLUDE_DIR /usr/lib/x86_64-linux-gnu)
 
 file(GLOB JSON_SOURCES "src/lib_json/*.cpp")
 file(GLOB SOURCES "src/*.cpp")
