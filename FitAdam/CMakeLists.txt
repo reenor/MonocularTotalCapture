@@ -12,7 +12,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}
 
 set(IGL_INCLUDE_DIRS "/content/libigl/include/")
 include_directories(${IGL_INCLUDE_DIRS})
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED PATHS "/content/opencv/")
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 find_package( PkgConfig )
 pkg_check_modules( EIGEN3 REQUIRED eigen3 )
