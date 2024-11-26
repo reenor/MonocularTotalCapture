@@ -12,7 +12,7 @@ MTC_DIR=~/Projects/MTC && mkdir -p $MTC_DIR
 ```
 
 #### CUDA
-cuda driver 550, cuda 12.6, cudnn 9.5.1
+CUDA Driver 550, CUDA toolkit 12.6, cudnn 9.5.1
 
 #### Python
 ```
@@ -43,18 +43,18 @@ mkdir -p ceres-solver/ceres-bin && cd ceres-solver/ceres-bin && cmake .. -DBUILD
 make -j`nproc` && sudo make install
 ```
 
-4. OpenGL
+#### OpenGL
 ```
 sudo apt-get install freeglut3-dev libglew-dev libglm-dev
 ```
 
-5. libigl
+#### libigl
 ```
 rm -rf $MTC_DIR/libigl && \ 
 cd $MTC_DIR && git clone --branch "v2.1.0" https://github.com/libigl/libigl.git
 ```
 
-6. OpenCV
+#### OpenCV
 ```
 rm -rf $MTC_DIR/opencv && \
 cd $MTC_DIR && git clone --depth 1 --branch "4.10.0" https://github.com/opencv/opencv && \
@@ -74,7 +74,7 @@ cmake -DOPENCV_EXTRA_MODULES_PATH=$MTC_DIR/opencv_contrib/modules/ \
 make -j`nproc` && sudo make install
 ```
 
-7. OpenPose
+#### OpenPose
 ```
 sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev libgoogle-glog-dev liblmdb-dev
 ```
@@ -82,16 +82,30 @@ sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev 
 rm -rf $MTC_DIR/openpose && \
 cd $MTC_DIR && git clone --depth 1 --branch "v1.7.0" https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
 ```
+
 Workaround for server connection problem
 ```
 pip install gdown && \
-cd ~ && gdown --fuzzy https://drive.google.com/file/d/1cqreuG8hSjtGTbtiunQxHWIO9tC8uCaL/view?usp=sharing && \
+cd $MTC_DIR/openpose && gdown --fuzzy https://drive.google.com/file/d/1cqreuG8hSjtGTbtiunQxHWIO9tC8uCaL/view?usp=sharing && \
+unzip -o models.zip
 ```
 ```
-unzip -o models.zip -d openpose && \
-mkdir -p openpose/build && cd openpose/build && \
+cd $MTC_DIR && mkdir -p openpose/build && cd openpose/build && \
 cmake .. -DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF -DDOWNLOAD_HAND_MODEL=OFF && \
 make -j`nproc`
+```
+
+# Installation
+
+```
+rm -rf $MTC_DIR/MonocularTotalCapture && \
+cd $MTC_DIR && git clone --depth 1 https://github.com/reenor/MonocularTotalCapture.git && \
+cd $MTC_DIR/MonocularTotalCapture && bash download.sh
+```
+
+```
+cd $MTC_DIR/MonocularTotalCapture/FitAdam && mkdir build && cd build && \
+cmake .. && make -j`nproc`
 ```
 
 # Dependencies
