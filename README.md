@@ -86,7 +86,8 @@ cd $MTC_DIR && git clone --depth 1 --branch "v1.7.0" https://github.com/CMU-Perc
 Workaround for server connection problem
 ```
 pip install gdown && \
-cd $MTC_DIR/openpose && gdown --fuzzy https://drive.google.com/file/d/1cqreuG8hSjtGTbtiunQxHWIO9tC8uCaL/view?usp=sharing && \
+cd $MTC_DIR/openpose && \
+gdown --fuzzy https://drive.google.com/file/d/1cqreuG8hSjtGTbtiunQxHWIO9tC8uCaL/view?usp=sharing && \
 unzip -o models.zip
 ```
 ```
