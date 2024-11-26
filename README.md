@@ -21,7 +21,7 @@ pip3 install setuptools \
     numpy \
     protobuf
 
-3. Ceres-solver
+3. Ceres Solver
 sudo apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev
 
 rm -rf ~/eigen && \
@@ -33,43 +33,49 @@ cd ~ && git clone --branch "1.13.0" https://github.com/ceres-solver/ceres-solver
 mkdir -p ceres-solver/ceres-bin && cd ceres-solver/ceres-bin && cmake .. -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF && \
 make -j`nproc` && sudo make install
 
+4. Open GL
+sudo apt-get install freeglut3-dev libglew-dev libglm-dev
 
+5. libigl
+rm -rf ~/libigl && \ 
+cd ~ && git clone --branch "v2.1.0" https://github.com/libigl/libigl.git
 
-sudo apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake \
-    git \
-    wget \
-    ffmpeg \
-    freeglut3 \
-    freeglut3-dev \
-    glew-utils \
-    libglew-dev \
-    libatlas-base-dev \
-    libboost-all-dev \
-    libgoogle-glog-dev \
-    libatlas-base-dev \
-    libsuitesparse-dev \
-    libgflags-dev \
-    libhdf5-serial-dev \
-    libleveldb-dev \
-    liblmdb-dev \
-    libprotobuf-dev \
-    libsnappy-dev \
-    libx11-dev \
-    libgl1-mesa-dev \
-    libglu1-mesa-dev \
-    libxrandr-dev \
-    libxi-dev \
-    libxmu-dev \
-    libblas-dev \ 
-    libxinerama-dev \
-    libxcursor-dev \
-    libglm-dev \
+6. OpenCV
+```
+rm -rf ~/opencv && \
+cd ~ && git clone --depth 1 --branch "4.10.0" https://github.com/opencv/opencv && \
+git clone --depth 1 --branch "4.10.0" https://github.com/opencv/opencv_contrib && \
+mkdir -p opencv/build opencv/release && cd opencv/build && \
+cmake -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules/ \
+       -DBUILD_SHARED_LIBS=OFF \
+       -DCMAKE_INSTALL_PREFIX=~/opencv/release \
+       -DBUILD_TESTS=OFF \
+       -DBUILD_PERF_TESTS=OFF \
+       -DBUILD_EXAMPLES=OFF \
+       -DWITH_OPENEXR=OFF \
+       -DWITH_CUDA=ON \
+       -DWITH_CUBLAS=ON \
+       -DWITH_CUDNN=ON \
+       -DOPENCV_DNN_CUDA=ON \
+       ~/opencv && \
+make -j`nproc` && sudo make install
+```
 
-
-   
-5.
+8. OpenPose
+```
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev libgoogle-glog-dev liblmdb-dev && \
+rm -rf ~/openpose && \
+cd ~ && git clone --depth 1 --branch "v1.7.0" https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
+```
+Workaround for server connection problem
+```
+pip install gdown && \
+cd ~ && gdown https://drive.google.com/file/d/1cqreuG8hSjtGTbtiunQxHWIO9tC8uCaL/view?usp=sharing && \
+unzip -o models.zip -d openpose && \
+mkdir -p openpose/build && cd openpose/build && \
+cmake .. -DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF -DDOWNLOAD_HAND_MODEL=OFF && \
+make -j`nproc`
+```
 
 # Dependencies
 This code is tested on a Ubuntu 16.04 machine with a GTX 1080Ti GPU, with the following dependencies.
