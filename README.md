@@ -11,6 +11,7 @@ Project website: [<http://domedb.perception.cs.cmu.edu/mtc.html>]
 cuda driver 550, cuda 12.6, cudnn 9.5.1
 
 2. PYTHON
+```
 pip3 install setuptools \
     wheel \
     tensorflow \
@@ -20,25 +21,34 @@ pip3 install setuptools \
     matplotlib \
     numpy \
     protobuf
+```
 
-3. Ceres Solver
+4. Ceres Solver
+```
 sudo apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev
-
+```
+```
 rm -rf ~/eigen && \
 cd ~ && git clone --branch "3.3.9" https://gitlab.com/libeigen/eigen.git && \
 mkdir -p eigen/build && cd eigen/build && cmake .. && sudo make install
-
+```
+```
 rm -rf ~/ceres-solver && \
 cd ~ && git clone --branch "1.13.0" https://github.com/ceres-solver/ceres-solver.git && \
 mkdir -p ceres-solver/ceres-bin && cd ceres-solver/ceres-bin && cmake .. -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF && \
 make -j`nproc` && sudo make install
+```
 
 4. Open GL
+```
 sudo apt-get install freeglut3-dev libglew-dev libglm-dev
+```
 
 5. libigl
+```
 rm -rf ~/libigl && \ 
 cd ~ && git clone --branch "v2.1.0" https://github.com/libigl/libigl.git
+```
 
 6. OpenCV
 ```
