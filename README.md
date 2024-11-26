@@ -76,7 +76,7 @@ make -j`nproc` && sudo make install
 
 #### OpenPose
 ```
-sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev libgoogle-glog-dev liblmdb-dev libboost-all-dev
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev libgoogle-glog-dev liblmdb-dev libboost-all-dev protobuf-compiler libhdf5-serial-dev
 ```
 ```
 rm -rf $MTC_DIR/openpose && \
