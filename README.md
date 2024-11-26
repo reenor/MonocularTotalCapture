@@ -6,6 +6,72 @@ Code for CVPR19 paper "Monocular Total Capture: Posing Face, Body and Hands in t
 Project website: [<http://domedb.perception.cs.cmu.edu/mtc.html>]
 
 # Dependencies
+
+1. CUDA
+cuda driver 550, cuda 12.6, cudnn 9.5.1
+
+2. PYTHON
+pip3 install setuptools \
+    wheel \
+    tensorflow \
+    opencv-python \
+    scikit-image \
+    Mako \
+    matplotlib \
+    numpy \
+    protobuf
+
+3. Ceres-solver
+sudo apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev
+
+rm -rf ~/eigen && \
+cd ~ && git clone --branch "3.3.9" https://gitlab.com/libeigen/eigen.git && \
+mkdir -p eigen/build && cd eigen/build && cmake .. && sudo make install
+
+rm -rf ~/ceres-solver && \
+cd ~ && git clone --branch "1.13.0" https://github.com/ceres-solver/ceres-solver.git && \
+mkdir -p ceres-solver/ceres-bin && cd ceres-solver/ceres-bin && cmake .. -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF && \
+make -j`nproc` && sudo make install
+
+
+
+sudo apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    ffmpeg \
+    freeglut3 \
+    freeglut3-dev \
+    glew-utils \
+    libglew-dev \
+    libatlas-base-dev \
+    libboost-all-dev \
+    libgoogle-glog-dev \
+    libatlas-base-dev \
+    libsuitesparse-dev \
+    libgflags-dev \
+    libhdf5-serial-dev \
+    libleveldb-dev \
+    liblmdb-dev \
+    libprotobuf-dev \
+    libsnappy-dev \
+    libx11-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libxrandr-dev \
+    libxi-dev \
+    libxmu-dev \
+    libblas-dev \ 
+    libxinerama-dev \
+    libxcursor-dev \
+    libglm-dev \
+
+
+   
+5.
+
+# Dependencies
 This code is tested on a Ubuntu 16.04 machine with a GTX 1080Ti GPU, with the following dependencies.
 1. ffmpeg
 2. Python 3.5 (with TensorFlow 1.5.0, OpenCV, Matplotlib, packages installed with pip3)
