@@ -11,10 +11,10 @@ Project website: [<http://domedb.perception.cs.cmu.edu/mtc.html>]
 MTC_DIR=~/Projects/MTC && mkdir -p $MTC_DIR
 ```
 
-### CUDA
+#### CUDA
 cuda driver 550, cuda 12.6, cudnn 9.5.1
 
-### PYTHON
+#### Python
 ```
 pip3 install setuptools \
     wheel \
@@ -27,7 +27,7 @@ pip3 install setuptools \
     protobuf
 ```
 
-3. Ceres Solver
+#### Ceres Solver
 ```
 sudo apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev
 ```
