@@ -7,10 +7,14 @@ Project website: [<http://domedb.perception.cs.cmu.edu/mtc.html>]
 
 # Dependencies
 
-1. CUDA
+```
+MTC_DIR=~/Projects/MTC && mkdir -p $MTC_DIR
+```
+
+### CUDA
 cuda driver 550, cuda 12.6, cudnn 9.5.1
 
-2. PYTHON
+### PYTHON
 ```
 pip3 install setuptools \
     wheel \
@@ -23,42 +27,41 @@ pip3 install setuptools \
     protobuf
 ```
 
-4. Ceres Solver
+3. Ceres Solver
 ```
 sudo apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev
 ```
 ```
-rm -rf ~/eigen && \
-cd ~ && git clone --branch "3.3.9" https://gitlab.com/libeigen/eigen.git && \
+rm -rf $MTC_DIR/eigen && \
+cd $MTC_DIR && git clone --branch "3.3.9" https://gitlab.com/libeigen/eigen.git && \
 mkdir -p eigen/build && cd eigen/build && cmake .. && sudo make install
 ```
 ```
-rm -rf ~/ceres-solver && \
-cd ~ && git clone --branch "1.13.0" https://github.com/ceres-solver/ceres-solver.git && \
+rm -rf $MTC_DIR/ceres-solver && \
+cd $MTC_DIR && git clone --branch "1.13.0" https://github.com/ceres-solver/ceres-solver.git && \
 mkdir -p ceres-solver/ceres-bin && cd ceres-solver/ceres-bin && cmake .. -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF && \
 make -j`nproc` && sudo make install
 ```
 
-4. Open GL
+4. OpenGL
 ```
 sudo apt-get install freeglut3-dev libglew-dev libglm-dev
 ```
 
 5. libigl
 ```
-rm -rf ~/libigl && \ 
-cd ~ && git clone --branch "v2.1.0" https://github.com/libigl/libigl.git
+rm -rf $MTC_DIR/libigl && \ 
+cd $MTC_DIR && git clone --branch "v2.1.0" https://github.com/libigl/libigl.git
 ```
 
 6. OpenCV
 ```
-rm -rf ~/opencv && \
-cd ~ && git clone --depth 1 --branch "4.10.0" https://github.com/opencv/opencv && \
+rm -rf $MTC_DIR/opencv && \
+cd $MTC_DIR && git clone --depth 1 --branch "4.10.0" https://github.com/opencv/opencv && \
 git clone --depth 1 --branch "4.10.0" https://github.com/opencv/opencv_contrib && \
-mkdir -p opencv/build opencv/release && cd opencv/build && \
-cmake -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules/ \
+mkdir -p opencv/build && cd opencv/build && \
+cmake -DOPENCV_EXTRA_MODULES_PATH=$MTC_DIR/opencv_contrib/modules/ \
        -DBUILD_SHARED_LIBS=OFF \
-       -DCMAKE_INSTALL_PREFIX=~/opencv/release \
        -DBUILD_TESTS=OFF \
        -DBUILD_PERF_TESTS=OFF \
        -DBUILD_EXAMPLES=OFF \
@@ -67,15 +70,17 @@ cmake -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules/ \
        -DWITH_CUBLAS=ON \
        -DWITH_CUDNN=ON \
        -DOPENCV_DNN_CUDA=ON \
-       ~/opencv && \
+       $MTC_DIR/opencv && \
 make -j`nproc` && sudo make install
 ```
 
-8. OpenPose
+7. OpenPose
 ```
-sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev libgoogle-glog-dev liblmdb-dev && \
-rm -rf ~/openpose && \
-cd ~ && git clone --depth 1 --branch "v1.7.0" https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libgflags-dev libgoogle-glog-dev liblmdb-dev
+```
+```
+rm -rf $MTC_DIR/openpose && \
+cd $MTC_DIR && git clone --depth 1 --branch "v1.7.0" https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
 ```
 Workaround for server connection problem
 ```
