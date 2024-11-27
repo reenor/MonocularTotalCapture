@@ -25,8 +25,8 @@ void model_size(const double* const joint, const std::vector<int>& connMat)
 cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage)
 {
 	assert(meshImage.cols == srcImage.cols && meshImage.rows == srcImage.rows);
-	assert(meshImage.type() == cv::CV_8UC3);
-	assert(srcImage.type() == cv::CV_8UC3 || srcImage.type() == cv::CV_8UC1);
+	assert(meshImage.type() == CV_8UC3);
+	assert(srcImage.type() == CV_8UC3 || srcImage.type() == CV_8UC1);
 	cv::Mat mask_array[3];
 	cv::Mat ret = srcImage.clone();
 	cv::Mat bgmask, fgmask;
@@ -39,7 +39,7 @@ cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage)
 	cv::bitwise_not(bgmask, fgmask);
 	bgmask = bgmask / 255;
 	fgmask = fgmask / 255;
-	if (srcImage.type() == cv::CV_8UC3)
+	if (srcImage.type() == CV_8UC3)
 	{
 		mask_array[0] = mask_array[1] = mask_array[2] = bgmask;
 		cv::merge(mask_array, 3, bgmask);
@@ -47,12 +47,12 @@ cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage)
 		cv::merge(mask_array, 3, fgmask);
 	}
 	else
-		cv::cvtColor(foreGround, foreGround, cv::CV_BGR2GRAY);
+		cv::cvtColor(foreGround, foreGround, cv::COLOR_BGR2GRAY);
 
-	ret.convertTo(ret, cv::CV_32F);
-	foreGround.convertTo(foreGround, cv::CV_32F);
-	bgmask.convertTo(bgmask, cv::CV_32F);
-	fgmask.convertTo(fgmask, cv::CV_32F);
+	ret.convertTo(ret, CV_32F);
+	foreGround.convertTo(foreGround, CV_32F);
+	bgmask.convertTo(bgmask, CV_32F);
+	fgmask.convertTo(fgmask, CV_32F);
 
 	cv::multiply(ret, bgmask, ret);
 	cv::multiply(foreGround, fgmask, foreGround);
@@ -65,8 +65,8 @@ cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage)
 cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage, const cv::Mat_<float> depthMap)
 {
 	assert(meshImage.cols == srcImage.cols && meshImage.rows == srcImage.rows);
-	assert(meshImage.type() == cv::CV_8UC3);
-	assert(srcImage.type() == cv::CV_8UC3 || srcImage.type() == cv::CV_8UC1);
+	assert(meshImage.type() == CV_8UC3);
+	assert(srcImage.type() == CV_8UC3 || srcImage.type() == CV_8UC1);
 	assert(meshImage.cols == depthMap.cols && meshImage.rows == depthMap.rows);
 
 	cv::Mat ret = srcImage.clone();
@@ -75,7 +75,7 @@ cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage, const 
 	fgmask = fgmask / 255;
 	bgmask = 1 - fgmask;
 
-	if (srcImage.type() == cv::CV_8UC3)
+	if (srcImage.type() == CV_8UC3)
 	{
 		cv::Mat mask_array[3] = {bgmask, bgmask, bgmask};
 		cv::merge(mask_array, 3, bgmask);
@@ -83,12 +83,12 @@ cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage, const 
 		cv::merge(mask_array, 3, fgmask);
 	}
 	else
-		cv::cvtColor(foreGround, foreGround, cv::CV_BGR2GRAY);
+		cv::cvtColor(foreGround, foreGround, cv::COLOR_BGR2GRAY);
 
-	ret.convertTo(ret, cv::CV_32F);
-	meshImage.convertTo(foreGround, cv::CV_32F);
-	fgmask.convertTo(fgmask, cv::CV_32F);
-	bgmask.convertTo(bgmask, cv::CV_32F);
+	ret.convertTo(ret, CV_32F);
+	meshImage.convertTo(foreGround, CV_32F);
+	fgmask.convertTo(fgmask, CV_32F);
+	bgmask.convertTo(bgmask, CV_32F);
 
 	cv::multiply(ret, bgmask, ret);
 	cv::multiply(foreGround, fgmask, foreGround);
@@ -101,14 +101,14 @@ cv::Mat alignMeshImage(const cv::Mat& meshImage, const cv::Mat& srcImage, const 
 cv::Mat alignMeshImageAlpha(const cv::Mat& meshImage, const cv::Mat& srcImage)
 {
 	// meshImage should be RGBA, srcImage should be RGB
-	assert(meshImage.type() == cv::CV_8UC4);
-	assert(srcImage.type() == cv::CV_8UC1 || srcImage.type() == cv::CV_8UC3);
+	assert(meshImage.type() == CV_8UC4);
+	assert(srcImage.type() == CV_8UC1 || srcImage.type() == CV_8UC3);
 
 	cv::Mat mask_array[4];
 	cv::Mat foreGround;
 	cv::split(meshImage, mask_array);
 	cv::Mat fgmask = mask_array[3];
-	fgmask.convertTo(fgmask, cv::CV_32F);
+	fgmask.convertTo(fgmask, CV_32F);
 	fgmask = fgmask / 255.0f;
 	// for (auto y = 0; y < fgmask.rows; y++)
 	// 	for (auto x = 0; x < fgmask.cols; x++)
@@ -118,12 +118,12 @@ cv::Mat alignMeshImageAlpha(const cv::Mat& meshImage, const cv::Mat& srcImage)
 	// 	}
 	cv::Mat bgmask = 1.0f - fgmask;
 	cv::merge(mask_array, 3, foreGround);
-	cv::cvtColor(foreGround, foreGround, cv::CV_RGB2BGR);
-	foreGround.convertTo(foreGround, cv::CV_32F);
+	cv::cvtColor(foreGround, foreGround, cv::COLOR_RGB2BGR);
+	foreGround.convertTo(foreGround, CV_32F);
 	cv::Mat ret = srcImage.clone();
-	ret.convertTo(ret, cv::CV_32F);
+	ret.convertTo(ret, CV_32F);
 
-	if (srcImage.type() == cv::CV_8UC3)
+	if (srcImage.type() == CV_8UC3)
 	{
 		cv::Mat mask_array[3] = {bgmask, bgmask, bgmask};
 		cv::merge(mask_array, 3, bgmask);
@@ -131,7 +131,7 @@ cv::Mat alignMeshImageAlpha(const cv::Mat& meshImage, const cv::Mat& srcImage)
 		cv::merge(mask_array, 3, fgmask);
 	}
 	else
-		cv::cvtColor(foreGround, foreGround, cv::CV_BGR2GRAY);
+		cv::cvtColor(foreGround, foreGround, cv::COLOR_BGR2GRAY);
 
 	cv::multiply(ret, bgmask, ret);
 	cv::multiply(foreGround, fgmask, foreGround);
